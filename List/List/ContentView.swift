@@ -23,7 +23,7 @@ struct CustomText: View {
 
 struct ContentView: View {
     var body: some View {
-        List(0 ..< 100) { index in
+        List(0..<100) { index in
             CustomText("Item \(index)")
         }
     }

@@ -9,8 +9,15 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        List(1..<100) { number in
+            if number % 2 == 0 {
+                Text("\(number)")
+                    .listRowBackground(Color.pink)
+            } else {
+                Text("\(number)")
+                    .listRowBackground(Color.orange)
+            }
+        }
     }
 }
 
