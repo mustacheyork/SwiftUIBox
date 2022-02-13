@@ -23,10 +23,8 @@ struct CustomText: View {
 
 struct ContentView: View {
     var body: some View {
-        List {
-            ForEach(0 ..< 100) { index in
-                CustomText("Item \(index)")
-            }
+        List(0 ..< 100) { index in
+            CustomText("Item \(index)")
         }
     }
 }
