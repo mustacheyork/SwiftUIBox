@@ -36,7 +36,7 @@ struct ContentView: View {
             
             Button("購入") {
                 if let inputCoin = Int(coin) {
-                    buyJuice(juiceName: juiceSelection, coin: inputCoin)
+                    purchaseJuice(juiceName: juiceSelection, coin: inputCoin)
                 } else {
                     showAlert.toggle()
                 }
@@ -54,7 +54,7 @@ struct ContentView: View {
         }
     }
         
-    func buyJuice(juiceName: String, coin: Int) {
+    func purchaseJuice(juiceName: String, coin: Int) {
         let change = coin - juicePrice
         if change >= 0 {
             checkMessage = """
