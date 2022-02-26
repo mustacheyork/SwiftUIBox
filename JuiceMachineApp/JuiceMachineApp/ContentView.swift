@@ -37,6 +37,7 @@ struct ContentView: View {
             Button("購入") {
                 if let inputCoin = Int(coin) {
                     purchaseJuice(juiceName: juiceSelection, coin: inputCoin)
+                    coin = ""
                 } else {
                     showAlert.toggle()
                 }
