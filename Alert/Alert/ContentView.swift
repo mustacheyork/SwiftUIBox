@@ -16,7 +16,8 @@ struct ContentView: View {
         }
         .buttonStyle(.borderedProminent)
         .alert("確認したいメッセージを表示", isPresented: $showingAlert) {
-            Button("OK", role: .cancel) { }
+            // Button("OK", role: .cancel) { }
+            Text("hoge")
         }
     }
 }

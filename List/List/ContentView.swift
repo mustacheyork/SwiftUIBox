@@ -13,7 +13,8 @@ struct CustomText: View {
     var body: some View {
         Text(text)
     }
-
+    
+    // 遅延ロードがされていないことを確認
     init(_ text: String) {
         print("Creating a new CustomText\(text)")
         self.text = text
