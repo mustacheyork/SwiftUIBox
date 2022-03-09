@@ -27,7 +27,7 @@ struct ContentView: View {
                 .padding()
             
             Button("🔍 check it 🔍") {
-                print( checkArray(targetArray: inputValues))
+                print( checkArray(targetArray: inputValues)
                 if checkArray(targetArray: inputValues) {
                     let numberList = convertStringToInt(stringValues: inputValues)
                     result = selectMinAndMax(inputNumbers: numberList)
