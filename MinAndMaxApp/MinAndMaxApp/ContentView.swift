@@ -11,28 +11,29 @@ struct ContentView: View {
     
     let dispMessage: String = """
                               最小値と最大値を調べます。
-                              例：25,50,10,15,40,20
+                              カンマ区切りで数字を入力してください。
                               """
     let minimumValue: Int = 0
     let maximumValue: Int = 0
     
-    @State var result = (min: 0,max: 0)
+    @State var result = (min: 0, max: 0)
     @State var inputValues: String = ""
     @State var convertValues: [Int] = []
+    @State private var showAlert = false
     
     var body: some View {
         VStack {
             Text(dispMessage)
-            TextField("カンマ区切りで数字を入力", text: $inputValues)
+            TextField("例：25,50,10,15,40,20", text: $inputValues)
                 .padding()
             
             Button("🔍 check it 🔍") {
-                print( checkArray(targetArray: inputValues)
-                if checkArray(targetArray: inputValues) {
-                    let numberList = convertStringToInt(stringValues: inputValues)
+                if chanCastInt(targetArray: inputValues) {
+                    let numberList = addIntArray(stringValues: inputValues)
                     result = selectMinAndMax(inputNumbers: numberList)
                 } else {
-                    print("入力値エラー")
+                    showAlert.toggle()
+                    inputValues = ""
                 }
             }
             .buttonStyle(.borderedProminent)
@@ -40,10 +41,14 @@ struct ContentView: View {
             
             Text("最小値：\(result.min) 最大値：\(result.max)")
         }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("空白のないカンマ区切りの数字を入力してください"))
+        }
         
     }
     
-    func checkArray(targetArray: String) -> Bool {
+    // 入力値がInt型に型変換できるかチェック
+    func chanCastInt(targetArray: String) -> Bool {
         let array = targetArray.components(separatedBy: ",")
         
         for value in array {
@@ -55,7 +60,8 @@ struct ContentView: View {
         return true
     }
 
-    func convertStringToInt(stringValues: String) -> [Int] {
+    // 入力値をInt型に型変換して配列に追加
+    func addIntArray(stringValues: String) -> [Int] {
         let array = inputValues.components(separatedBy: ",")
         var convertValues: [Int] = []
         
@@ -67,9 +73,10 @@ struct ContentView: View {
         return convertValues
     }
 
+    // 最小値・最大値をタプルで返却
     func selectMinAndMax(inputNumbers: [Int]) -> (min: Int, max : Int) {
-        var minimumValue: Int = inputNumbers[0]
-        var maximumValue: Int = inputNumbers[0]
+        var minimumValue: Int = inputNumbers.first!
+        var maximumValue: Int = inputNumbers.first!
 
         for number in inputNumbers {
             if number < minimumValue {
@@ -79,7 +86,7 @@ struct ContentView: View {
             }
         }
 
-        return (min: minimumValue,max: maximumValue)
+        return (min: minimumValue, max: maximumValue)
     }
 }
 

@@ -13,9 +13,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List(civilizations, id: \.self) { cvlz in
-                    NavigationLink(destination: DetailView(name: cvlz)) {
-                        Text(cvlz)
-                    }
+                NavigationLink(destination: DetailView(name: cvlz)) {
+                    Text(cvlz)
+                }
             }
             .navigationBarTitle("Civilization")
             .navigationBarHidden(true)
