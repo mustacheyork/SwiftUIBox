@@ -7,31 +7,57 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    @State var civilizations = ["ポルトガル", "スペイン", "オランダ", "フランス", "日本", "アステカ"]
- 
+struct FirstView: View {
+    
+    @State private var isActive = false
+    
     var body: some View {
         NavigationView {
-            List(civilizations, id: \.self) { cvlz in
-                NavigationLink(destination: DetailView(name: cvlz)) {
-                    Text(cvlz)
-                }
+            NavigationLink(destination: SecondView(isFirstViewActive: $isActive), isActive: $isActive) {
+                Button(action: {
+                    self.isActive = true
+                }, label: {
+                    Text("Forward to Second View.")
+                })
             }
-            .navigationBarTitle("Civilization")
-            .navigationBarHidden(true)
+            .navigationBarTitle("First View")
         }
     }
 }
 
-struct DetailView: View {
-    var name: String = "Hello SwiftUI"
+struct SecondView: View {
+    
+    @State private var isActive = false
+    @Binding var isFirstViewActive: Bool
+    
     var body: some View {
-        Text(name).font(.system(size: 30))
+        NavigationLink(destination: ThirdView(isFirstViewActive: $isFirstViewActive), isActive: $isActive) {
+            Button(action: {
+                self.isActive = true
+            }, label: {
+                Text("Forward to Third View.")
+            })
+        }
+        .isDetailLink(false)
+        .navigationBarTitle("Second View")
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ThirdView: View {
+    
+    @Binding var isFirstViewActive: Bool
+    
+    var body: some View {
+        Button(action: {
+            self.isFirstViewActive = false
+        }, label: {
+            Text("Back to First View.")
+        })
+        .navigationBarTitle("Third View")
+    }
+}
+struct FirstView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        FirstView()
     }
 }
