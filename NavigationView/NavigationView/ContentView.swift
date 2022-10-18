@@ -12,15 +12,20 @@ struct FirstView: View {
     @State private var isActive = false
     
     var body: some View {
-        NavigationView {
-            NavigationLink(destination: SecondView(isFirstViewActive: $isActive), isActive: $isActive) {
-                Button(action: {
-                    self.isActive = true
-                }, label: {
-                    Text("Forward to Second View.")
-                })
+        ZStack {
+            NavigationView {
+                NavigationLink(destination: SecondView(isFirstViewActive: $isActive), isActive: $isActive) {
+                    VStack {
+                        Button(action: {
+                            self.isActive = true
+                        }, label: {
+                            Text("Forward to Second View.")
+                        })
+                        Spacer()
+                    }
+                }
+                .navigationBarTitle("First View")
             }
-            .navigationBarTitle("First View")
         }
     }
 }
