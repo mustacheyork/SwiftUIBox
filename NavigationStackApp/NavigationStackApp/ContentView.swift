@@ -7,47 +7,45 @@
 
 import SwiftUI
 
+enum RoutingModel: Hashable {
+   case yesRoute
+   case noRoute
+}
+ 
 struct ContentView: View {
-    
-    @State var isYesView = false
-    @State var isNoView = false
-    
-    var body: some View {
-        NavigationStack {
-            HStack {
-                Button {
-                    isYesView.toggle()
-                } label: {
-                    Text("Yes")
-                }
-
-                Button {
-                    isNoView.toggle()
-                } label: {
-                    Text("Yes")
-                }
-            }
-            .navigationDestination(isPresented: $isYesView) {
-                YesView()
-            }
-            .navigationDestination(isPresented: $isNoView) {
-                NoView()
-            }
-            .navigationTitle("Diagnostic Chart")
-        }
-    }
+   var body: some View {
+       NavigationStack {
+           HStack {
+               NavigationLink(value: RoutingModel.yesRoute) {
+                   Text("Yes")
+               }
+               NavigationLink(value: RoutingModel.noRoute) {
+                   Text("No")
+               }
+           }
+           .navigationTitle(Text("First"))
+           .navigationDestination(for: RoutingModel.self) { destination in
+               switch destination {
+               case .yesRoute:
+                   FirstView()
+               case .noRoute:
+                   SecondView()
+               }
+           }
+       }
+   }
 }
-
-struct YesView: View {
-    var body: some View {
-        Text("Say Yes")
-    }
+ 
+struct FirstView: View {
+   var body: some View {
+        Text("First View")
+   }
 }
-
-struct NoView: View {
-    var body: some View {
-        Text("Say No")
-    }
+ 
+struct SecondView: View {
+   var body: some View {
+       Text("Second View")
+   }
 }
 
 
