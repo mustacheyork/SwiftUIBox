@@ -17,13 +17,19 @@ struct ContentView: View {
        NavigationStack {
            HStack {
                NavigationLink(value: RoutingModel.yesRoute) {
-                   Text("Yes")
+                   Text("First")
+                       .frame(maxWidth: .infinity, maxHeight: 100)
+                       .background(.blue)
                }
                NavigationLink(value: RoutingModel.noRoute) {
-                   Text("No")
+                   Text("Second")
+                       .frame(maxWidth: .infinity, maxHeight: 100)
+                       .background(.pink)
                }
            }
-           .navigationTitle(Text("First"))
+           .foregroundColor(.white)
+           .font(.largeTitle)
+           .navigationTitle(Text("Start"))
            .navigationDestination(for: RoutingModel.self) { destination in
                switch destination {
                case .yesRoute:
@@ -44,10 +50,37 @@ struct FirstView: View {
  
 struct SecondView: View {
    var body: some View {
-       Text("Second View")
+       HStack {
+           NavigationLink(value: RoutingModel.yesRoute) {
+               Text("First")
+                   .frame(maxWidth: .infinity, maxHeight: 100)
+                   .background(.blue)
+           }
+           NavigationLink(value: RoutingModel.noRoute) {
+               Text("Third")
+                   .frame(maxWidth: .infinity, maxHeight: 100)
+                   .background(.pink)
+           }
+       }
+       .foregroundColor(.white)
+       .font(.largeTitle)
+       .navigationTitle(Text("Second View"))
+       .navigationDestination(for: RoutingModel.self) { destination in
+           switch destination {
+           case .yesRoute:
+               FirstView()
+           case .noRoute:
+               ThirdView()
+           }
+       }
    }
 }
 
+struct ThirdView: View {
+   var body: some View {
+       Text("Third View")
+   }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
